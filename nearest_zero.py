@@ -1,3 +1,5 @@
+# ID 91002906
+
 def count_zero_distance(street_numbers):
     zeros = [position for position, element in enumerate(
         street_numbers) if element == '0']
