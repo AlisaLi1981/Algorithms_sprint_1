@@ -1,25 +1,23 @@
-# ID 91235448
-
-from typing import Optional
-
+# ID 91251601
 
 def count_zero_distance(n, street_numbers):
-    zero_distance = [None] * n
-    nearest_zero: Optional[int] = None
+    zero_distance = [0] * n
+    distance = 0
+    first_index = None
 
     for i, number in enumerate(street_numbers):
         if number == 0:
-            nearest_zero = i
-        if nearest_zero is not None:
-            zero_distance[i] = i - nearest_zero
-
-    nearest_zero = None
-    for i, number in reversed(list(enumerate(street_numbers))):
-        if number == 0:
-            nearest_zero = i
-        if nearest_zero is not None:
-            if zero_distance[i] is None or nearest_zero - i < zero_distance[i]:
-                zero_distance[i] = nearest_zero - i
+            if first_index is not None:
+                for j in range(first_index, i):
+                    zero_distance[j] = min(j - first_index, i - j)
+            else:
+                for j in range(i):
+                    zero_distance[j] = i - j
+            first_index = i
+            distance = 0
+        else:
+            distance += 1
+            zero_distance[i] = distance
 
     return zero_distance
 
